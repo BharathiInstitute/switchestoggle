@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+
+class FancySwitch extends StatefulWidget {
+  const FancySwitch({super.key});
+
+  @override
+  _FancySwitchState createState() => _FancySwitchState();
+}
+
+class _FancySwitchState extends State<FancySwitch>
+    with SingleTickerProviderStateMixin {
+  bool isOn = true;
+
+  @override
+  Widget build(BuildContext context) {
+    double width = 100;
+    double height = 50;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isOn = !isOn;
+        });
+      },
+      child: Stack(
+        alignment: Alignment.centerLeft,
+        children: [
+          // Shadow layer
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(height / 2),
+              color: isOn ? Colors.blue.shade200 : Colors.grey.shade700,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.3),
+                  offset: const Offset(3, 3),
+                  blurRadius: 5,
+                ),
+              ],
+            ),
+          ),
+          // Button layer
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            left: isOn ? width - height : 0,
+            child: Container(
+              width: height,
+              height: height,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: isOn
+                      ? [Colors.blue, Colors.lightBlueAccent]
+                      : [Colors.grey.shade800, Colors.grey.shade600],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 4,
+                    offset: const Offset(2, 2),
+                  ),
+                ],
+              ),
+              child: Icon(
+                isOn ? Icons.check : Icons.close,
+                color: Colors.white,
+                size: 28,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

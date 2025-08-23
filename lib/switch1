@@ -1,0 +1,86 @@
+import 'package:flutter/material.dart';
+
+class ToggleButton extends StatefulWidget {
+  const ToggleButton({super.key});
+
+  @override
+  _ToggleButtonState createState() => _ToggleButtonState();
+}
+
+class _ToggleButtonState extends State<ToggleButton>
+    with SingleTickerProviderStateMixin {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    double size = 100; // size of the button (7em approx)
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isChecked = !isChecked;
+        });
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            colors: isChecked
+                ? [const Color(0xFF262626), const Color(0xFF606060)]
+                : [const Color(0xFF171717), const Color(0xFF444245)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          border: Border.all(
+            width: 4,
+            color: isChecked
+                ? const Color.fromRGBO(77, 124, 255, 0.28)
+                : Colors.black,
+          ),
+          boxShadow: isChecked
+              ? [
+                  const BoxShadow(
+                      color: Colors.black87,
+                      offset: Offset(-2, -2),
+                      blurRadius: 0),
+                  BoxShadow(
+                      color: Colors.grey.shade800,
+                      offset: const Offset(2, 2),
+                      blurRadius: 0),
+                ]
+              : [
+                  BoxShadow(
+                      color: Colors.grey.shade700,
+                      offset: const Offset(2, 2),
+                      blurRadius: 0),
+                  const BoxShadow(
+                      color: Colors.black87,
+                      offset: Offset(-2, -2),
+                      blurRadius: 0),
+                ],
+        ),
+        child: Center(
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: isChecked
+                ? const Icon(
+                    Icons.favorite,
+                    key: ValueKey('checked'),
+                    color: Color.fromRGBO(77, 124, 255, 1),
+                    size: 40,
+                  )
+                : const Icon(
+                    Icons.favorite_border,
+                    key: ValueKey('unchecked'),
+                    color: Color(0xFFA5A5A5),
+                    size: 40,
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+}
