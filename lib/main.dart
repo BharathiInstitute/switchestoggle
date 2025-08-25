@@ -12,11 +12,13 @@ import 'switch7.dart';
 import 'switch8.dart';
 import 'switch9.dart' as switch9;
 import 'switch10.dart';
-import 'switch14.dart'; // for SvgToggleButton
-import 'switch11.dart' as switch11; // PowerToggle
-import 'switch12.dart'; // NFToggle
-import 'switch13.dart'; // SimpleToggle
-import 'switch15.dart'; // CustomToggleSwitch
+import 'switch14.dart';
+import 'switch11.dart' as switch11;
+import 'switch12.dart';
+import 'switch13.dart';
+import 'switch15.dart';
+import 'switch16.dart';
+import 'switch18.dart';
 
 class ContainerDetailScreen extends StatelessWidget {
   final int containerNumber;
@@ -30,82 +32,55 @@ class ContainerDetailScreen extends StatelessWidget {
       case 1:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const PlaneSwitch(),
-            const SizedBox(height: 24),
-          ],
+          children: [const PlaneSwitch(), const SizedBox(height: 24)],
         );
         break;
       case 2:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const HeartToggleDemo(),
-            const SizedBox(height: 24),
-          ],
+          children: [const HeartToggleDemo(), const SizedBox(height: 24)],
         );
         break;
       case 3:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const TextSwitchDemo(),
-            const SizedBox(height: 24),
-          ],
+          children: [const TextSwitchDemo(), const SizedBox(height: 24)],
         );
         break;
       case 4:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const NeoToggleDemo(),
-            const SizedBox(height: 24),
-          ],
+          children: [const NeoToggleDemo(), const SizedBox(height: 24)],
         );
         break;
       case 5:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CustomToggle(),
-            const SizedBox(height: 24),
-          ],
+          children: [const CustomToggle(), const SizedBox(height: 24)],
         );
         break;
       case 6:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const PlaySwitch(),
-            const SizedBox(height: 24),
-          ],
+          children: [const PlaySwitch(), const SizedBox(height: 24)],
         );
         break;
       case 7:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const BB8Toggle(),
-            const SizedBox(height: 24),
-          ],
+          children: [const BB8Toggle(), const SizedBox(height: 24)],
         );
         break;
       case 8:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Switch7(),
-            const SizedBox(height: 24),
-          ],
+          children: [const Switch7(), const SizedBox(height: 24)],
         );
         break;
       case 9:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Switch8(),
-            const SizedBox(height: 24),
-          ],
+          children: [const Switch8(), const SizedBox(height: 24)],
         );
         break;
       case 10:
@@ -163,7 +138,15 @@ class ContainerDetailScreen extends StatelessWidget {
         );
         break;
       case 14:
-        detailWidget = _MuteSpeakerButtonDemo();
+        detailWidget = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Add a switch toggle
+            _SimpleSwitch(),
+            const SizedBox(height: 24),
+            _MuteSpeakerButtonDemo(),
+          ],
+        );
         break;
       case 15:
         detailWidget = Column(
@@ -182,6 +165,36 @@ class ContainerDetailScreen extends StatelessWidget {
           ],
         );
         break;
+      case 16:
+        detailWidget = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ModernSlideToggle(), // <-- new custom switch toggle
+            const SizedBox(height: 24),
+            Text('Modern Slide Toggle Example', style: TextStyle(fontSize: 18)),
+          ],
+        );
+        break;
+      case 17:
+        detailWidget = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            LockToggleButton(), // <-- your custom toggle switch
+            const SizedBox(height: 24),
+            Text('Lock Toggle Example', style: TextStyle(fontSize: 18)),
+          ],
+        );
+        break;
+      case 18:
+        detailWidget = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            WifiToggleButton(), // <-- your custom WiFi toggle switch
+            const SizedBox(height: 24),
+            Text('WiFi Toggle Example', style: TextStyle(fontSize: 18)),
+          ],
+        );
+        break;
       default:
         detailWidget = Text(
           'You opened container $containerNumber!',
@@ -195,7 +208,7 @@ class ContainerDetailScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Center(child: detailWidget), // <-- FIXED: add Center(child: detailWidget)
+        child: Center(child: detailWidget),
       ),
     );
   }
@@ -275,7 +288,7 @@ class HomePage extends StatelessWidget {
           crossAxisSpacing: 8.0,
           mainAxisSpacing: 8.0,
         ),
-        itemCount: 30, // <-- Change this to 30 for 30 buttons
+        itemCount: 30,
         itemBuilder: (context, index) {
           final containerNumber = index + 1;
           return ElevatedButton(
@@ -430,6 +443,198 @@ class _HeartFavoriteToggleState extends State<HeartFavoriteToggle>
                       key: ValueKey('add'),
                       style: TextStyle(color: Colors.black),
                     ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ToggleSwitchDemo16 extends StatefulWidget {
+  const _ToggleSwitchDemo16({Key? key}) : super(key: key);
+
+  @override
+  State<_ToggleSwitchDemo16> createState() => _ToggleSwitchDemo16State();
+}
+
+class _ToggleSwitchDemo16State extends State<_ToggleSwitchDemo16> {
+  bool _value = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Switch(
+          value: _value,
+          onChanged: (val) => setState(() => _value = val),
+        ),
+        const SizedBox(height: 24),
+        ElevatedButton(
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Toggle Switch is ${_value ? "ON" : "OFF"}')),
+            );
+          },
+          child: const Text('Press Me'),
+        ),
+      ],
+    );
+  }
+}
+
+class ModernSlideToggle extends StatefulWidget {
+  const ModernSlideToggle({Key? key}) : super(key: key);
+
+  @override
+  _ModernSlideToggleState createState() => _ModernSlideToggleState();
+}
+
+class _ModernSlideToggleState extends State<ModernSlideToggle> {
+  bool _isToggled = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isToggled = !_isToggled;
+        });
+      },
+      child: Container(
+        width: 60,
+        height: 34,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: _isToggled ? Colors.blue : Colors.grey,
+        ),
+        child: Stack(
+          children: [
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              left: _isToggled ? 26 : 4,
+              right: _isToggled ? 4 : 26,
+              child: Container(
+                width: 34,
+                height: 34,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LockToggleButton extends StatefulWidget {
+  const LockToggleButton({Key? key}) : super(key: key);
+
+  @override
+  _LockToggleButtonState createState() => _LockToggleButtonState();
+}
+
+class _LockToggleButtonState extends State<LockToggleButton> {
+  bool _isLocked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isLocked = !_isLocked;
+        });
+      },
+      child: Container(
+        width: 60,
+        height: 34,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: _isLocked ? Colors.red : Colors.green,
+        ),
+        child: Stack(
+          children: [
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              left: _isLocked ? 26 : 4,
+              right: _isLocked ? 4 : 26,
+              child: Container(
+                width: 34,
+                height: 34,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                _isLocked ? 'Locked' : 'Unlocked',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WifiToggleButton extends StatefulWidget {
+  const WifiToggleButton({Key? key}) : super(key: key);
+
+  @override
+  _WifiToggleButtonState createState() => _WifiToggleButtonState();
+}
+
+class _WifiToggleButtonState extends State<WifiToggleButton> {
+  bool _isWifiEnabled = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isWifiEnabled = !_isWifiEnabled;
+        });
+      },
+      child: Container(
+        width: 60,
+        height: 34,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: _isWifiEnabled ? Colors.blue : Colors.grey,
+        ),
+        child: Stack(
+          children: [
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              left: _isWifiEnabled ? 26 : 4,
+              right: _isWifiEnabled ? 4 : 26,
+              child: Container(
+                width: 34,
+                height: 34,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Center(
+              child: Icon(
+                _isWifiEnabled ? Icons.wifi : Icons.wifi_off,
+                color: _isWifiEnabled ? Colors.white : Colors.black,
+              ),
             ),
           ],
         ),
