@@ -23,6 +23,9 @@ import 'switch18.dart';
 import 'switch19.dart';
 import 'switch20.dart';
 import 'switch21.dart';
+import 'uiverse_checkbox_41.dart';
+import 'switch23.dart';
+import 'switch24.dart';
 
 class ContainerDetailScreen extends StatelessWidget {
   final int containerNumber;
@@ -205,7 +208,69 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Add your custom widget for switch21 here
+            Switch21Toggle(),
+            const SizedBox(height: 24),
+            UiverseCheckbox41(), // <-- Add this line to show the custom toggle
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Button inside Switch21 pressed!')),
+                );
+              },
+              child: const Text('Press Me'),
+            ),
+          ],
+        );
+        break;
+      case 22:
+        detailWidget = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Switch22Toggle(),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Button pressed!')),
+                );
+              },
+              child: const Text('Press Me'),
+            ),
+          ],
+        );
+        break;
+      case 23:
+        detailWidget = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Switch23Toggle(),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Button inside Switch23 pressed!')),
+                );
+              },
+              child: const Text('Press Me'),
+            ),
+          ],
+        );
+        break;
+      case 24:
+        detailWidget = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Switch24Toggle(),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Button inside Switch24 pressed!')),
+                );
+              },
+              child: const Text('Press Me'),
+            ),
           ],
         );
         break;
@@ -991,6 +1056,63 @@ class _ReduceMotionToggleState extends State<ReduceMotionToggle>
           ],
         ),
       ),
+    );
+  }
+}
+
+class Switch22Toggle extends StatefulWidget {
+  const Switch22Toggle({Key? key}) : super(key: key);
+
+  @override
+  State<Switch22Toggle> createState() => _Switch22ToggleState();
+}
+
+class _Switch22ToggleState extends State<Switch22Toggle> {
+  bool _isOn = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      value: _isOn,
+      onChanged: (val) => setState(() => _isOn = val),
+    );
+  }
+}
+
+class Switch23Toggle extends StatefulWidget {
+  const Switch23Toggle({Key? key}) : super(key: key);
+
+  @override
+  State<Switch23Toggle> createState() => _Switch23ToggleState();
+}
+
+class _Switch23ToggleState extends State<Switch23Toggle> {
+  bool _isOn = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      value: _isOn,
+      onChanged: (val) => setState(() => _isOn = val),
+    );
+  }
+}
+
+class Switch24Toggle extends StatefulWidget {
+  const Switch24Toggle({Key? key}) : super(key: key);
+
+  @override
+  State<Switch24Toggle> createState() => _Switch24ToggleState();
+}
+
+class _Switch24ToggleState extends State<Switch24Toggle> {
+  bool _isOn = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      value: _isOn,
+      onChanged: (val) => setState(() => _isOn = val),
     );
   }
 }
