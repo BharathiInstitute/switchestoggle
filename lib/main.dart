@@ -21,6 +21,7 @@ import 'switch16.dart';
 import 'switch17.dart';
 import 'switch18.dart';
 import 'switch19.dart';
+import 'switch20.dart';
 
 class ContainerDetailScreen extends StatelessWidget {
   final int containerNumber;
@@ -188,6 +189,14 @@ class ContainerDetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             UiverseToggleSwitch(),
+          ],
+        );
+        break;
+      case 20:
+        detailWidget = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            NeonWaveToggle(), // <-- your custom switch toggle for switch20
           ],
         );
         break;
@@ -849,6 +858,124 @@ class _NeoToggleState extends State<NeoToggle> with SingleTickerProviderStateMix
                         ? Icon(Icons.graphic_eq, color: Colors.deepPurple, size: 24, key: ValueKey('on'))
                         : Icon(Icons.graphic_eq, color: Colors.grey.shade800, size: 24, key: ValueKey('off')),
                   ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ReduceMotionToggle extends StatefulWidget {
+  const ReduceMotionToggle({Key? key}) : super(key: key);
+
+  @override
+  State<ReduceMotionToggle> createState() => _ReduceMotionToggleState();
+}
+
+class _ReduceMotionToggleState extends State<ReduceMotionToggle>
+    with SingleTickerProviderStateMixin {
+  bool isReduced = false;
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _toggle() {
+    setState(() => isReduced = !isReduced);
+    if (isReduced) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _toggle,
+      child: SizedBox(
+        width: 72,
+        height: 40,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Line
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 400),
+              left: isReduced ? 38 : 60,
+              top: 10,
+              child: Container(
+                width: 4,
+                height: 20,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade400,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            // Ball trace (faded circles)
+            ...List.generate(4, (i) {
+              final offset = isReduced ? 38.0 - i * 7.0 : 60.0 - i * 7.0;
+              return AnimatedPositioned(
+                duration: Duration(milliseconds: 200 + i * 60),
+                left: offset,
+                top: 20,
+                child: Opacity(
+                  opacity: isReduced ? 0.3 + i * 0.15 : 0.15 + i * 0.1,
+                  child: Container(
+                    width: 12 - i * 2,
+                    height: 12 - i * 2,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+                ),
+              );
+            }),
+            // Ball
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 400),
+              left: isReduced ? 38 : 60,
+              top: 16,
+              child: Container(
+                width: 16,
+                height: 16,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isReduced ? Colors.blueAccent : Colors.grey.shade400,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Toggle background
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.grey.shade200,
+                  border: Border.all(color: Colors.grey.shade400, width: 1),
                 ),
               ),
             ),
