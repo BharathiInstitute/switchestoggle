@@ -728,3 +728,133 @@ class _UiverseToggleSwitchState extends State<UiverseToggleSwitch> {
     );
   }
 }
+
+class NeoToggle extends StatefulWidget {
+  const NeoToggle({Key? key}) : super(key: key);
+
+  @override
+  State<NeoToggle> createState() => _NeoToggleState();
+}
+
+class _NeoToggleState extends State<NeoToggle> with SingleTickerProviderStateMixin {
+  bool isOn = false;
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _toggle() {
+    setState(() => isOn = !isOn);
+    if (isOn) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _toggle,
+      child: Container(
+        width: 100,
+        height: 48,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          color: isOn ? Colors.deepPurple.shade700 : Colors.grey.shade800,
+          boxShadow: [
+            BoxShadow(
+              color: isOn ? Colors.deepPurpleAccent.withOpacity(0.3) : Colors.black26,
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Spectrum bars
+            Positioned(
+              top: 12,
+              left: 24,
+              right: 24,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(5, (i) {
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    width: 6,
+                    height: isOn ? 18.0 - i * 2 : 10.0 + i * 2,
+                    decoration: BoxDecoration(
+                      color: isOn ? Colors.cyanAccent : Colors.grey.shade600,
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                  );
+                }),
+              ),
+            ),
+            // Track highlight
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                height: isOn ? 48 : 44,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  gradient: LinearGradient(
+                    colors: isOn
+                        ? [Colors.deepPurpleAccent, Colors.cyanAccent]
+                        : [Colors.grey.shade700, Colors.grey.shade900],
+                  ),
+                ),
+              ),
+            ),
+            // Thumb
+            AnimatedAlign(
+              duration: const Duration(milliseconds: 300),
+              alignment: isOn ? Alignment.centerRight : Alignment.centerLeft,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isOn ? Colors.cyanAccent : Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: isOn ? Colors.cyanAccent.withOpacity(0.3) : Colors.black12,
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: isOn
+                        ? Icon(Icons.graphic_eq, color: Colors.deepPurple, size: 24, key: ValueKey('on'))
+                        : Icon(Icons.graphic_eq, color: Colors.grey.shade800, size: 24, key: ValueKey('off')),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
