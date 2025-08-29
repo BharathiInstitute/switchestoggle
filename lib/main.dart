@@ -19,6 +19,7 @@ import 'switch13.dart';
 import 'switch15.dart';
 import 'switch16.dart';
 import 'switch18.dart';
+import 'switch19.dart';
 
 class ContainerDetailScreen extends StatelessWidget {
   final int containerNumber;
@@ -32,55 +33,55 @@ class ContainerDetailScreen extends StatelessWidget {
       case 1:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [const PlaneSwitch(), const SizedBox(height: 24)],
+          children: [PlaneSwitch(), const SizedBox(height: 24)],
         );
         break;
       case 2:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [const HeartToggleDemo(), const SizedBox(height: 24)],
+          children: [HeartToggleDemo(), const SizedBox(height: 24)],
         );
         break;
       case 3:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [const TextSwitchDemo(), const SizedBox(height: 24)],
+          children: [TextSwitchDemo(), const SizedBox(height: 24)],
         );
         break;
       case 4:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [const NeoToggleDemo(), const SizedBox(height: 24)],
+          children: [NeoToggleDemo(), const SizedBox(height: 24)],
         );
         break;
       case 5:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [const CustomToggle(), const SizedBox(height: 24)],
+          children: [CustomToggle(), const SizedBox(height: 24)],
         );
         break;
       case 6:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [const PlaySwitch(), const SizedBox(height: 24)],
+          children: [PlaySwitch(), const SizedBox(height: 24)],
         );
         break;
       case 7:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [const BB8Toggle(), const SizedBox(height: 24)],
+          children: [BB8Toggle(), const SizedBox(height: 24)],
         );
         break;
       case 8:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [const Switch7(), const SizedBox(height: 24)],
+          children: [Switch7(), const SizedBox(height: 24)],
         );
         break;
       case 9:
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [const Switch8(), const SizedBox(height: 24)],
+          children: [Switch8(), const SizedBox(height: 24)],
         );
         break;
       case 10:
@@ -90,7 +91,7 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const switch11.PowerToggle(),
+            switch11.PowerToggle(),
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
@@ -107,7 +108,7 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const NFToggle(),
+            NFToggle(),
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
@@ -124,7 +125,7 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SimpleToggle(),
+            SimpleToggle(),
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
@@ -141,7 +142,6 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Add a switch toggle
             _SimpleSwitch(),
             const SizedBox(height: 24),
             _MuteSpeakerButtonDemo(),
@@ -152,7 +152,7 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CustomToggleSwitch(),
+            CustomToggleSwitch(),
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
@@ -169,7 +169,7 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ModernSlideToggle(), // <-- new custom switch toggle
+            ModernSlideToggle(),
             const SizedBox(height: 24),
             Text('Modern Slide Toggle Example', style: TextStyle(fontSize: 18)),
           ],
@@ -179,7 +179,7 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            LockToggleButton(), // <-- your custom toggle switch
+            LockToggleButton(),
             const SizedBox(height: 24),
             Text('Lock Toggle Example', style: TextStyle(fontSize: 18)),
           ],
@@ -189,9 +189,15 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            WifiToggleButton(), // <-- your custom WiFi toggle switch
-            const SizedBox(height: 24),
-            Text('WiFi Toggle Example', style: TextStyle(fontSize: 18)),
+            WifiToggleButton(),
+          ],
+        );
+        break;
+      case 19:
+        detailWidget = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomToggleSwitch(),
           ],
         );
         break;
