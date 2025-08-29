@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Widget imports
+// Widget imports - keep each custom widget in its own file
 import 'switch_plane.dart';
 import 'heart_toggle.dart';
 import 'switch4.dart';
@@ -18,6 +18,7 @@ import 'switch12.dart';
 import 'switch13.dart';
 import 'switch15.dart';
 import 'switch16.dart';
+import 'switch17.dart';
 import 'switch18.dart';
 import 'switch19.dart';
 
@@ -152,16 +153,7 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomToggleSwitch(),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Button pressed!')),
-                );
-              },
-              child: const Text('Press Me'),
-            ),
+            FancyGlowToggle(), // <-- new custom toggle for switch15
           ],
         );
         break;
@@ -171,7 +163,7 @@ class ContainerDetailScreen extends StatelessWidget {
           children: [
             ModernSlideToggle(),
             const SizedBox(height: 24),
-            Text('Modern Slide Toggle Example', style: TextStyle(fontSize: 18)),
+            const Text('Modern Slide Toggle Example', style: TextStyle(fontSize: 18)),
           ],
         );
         break;
@@ -180,8 +172,6 @@ class ContainerDetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             LockToggleButton(),
-            const SizedBox(height: 24),
-            Text('Lock Toggle Example', style: TextStyle(fontSize: 18)),
           ],
         );
         break;
@@ -197,7 +187,7 @@ class ContainerDetailScreen extends StatelessWidget {
         detailWidget = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomToggleSwitch(),
+            UiverseToggleSwitch(),
           ],
         );
         break;
@@ -289,7 +279,7 @@ class HomePage extends StatelessWidget {
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(8.0),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 8.0,
           mainAxisSpacing: 8.0,
@@ -322,6 +312,7 @@ void main() {
   ));
 }
 
+/// Small helper kept in main.dart (used by case 14)
 class _MuteSpeakerButtonDemo extends StatefulWidget {
   const _MuteSpeakerButtonDemo({Key? key}) : super(key: key);
 
@@ -348,9 +339,7 @@ class _MuteSpeakerButtonDemoState extends State<_MuteSpeakerButtonDemo> {
             setState(() => isMuted = !isMuted);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(isMuted
-                    ? 'Speaker muted!'
-                    : 'Speaker unmuted!'),
+                content: Text(isMuted ? 'Speaker muted!' : 'Speaker unmuted!'),
               ),
             );
           },
@@ -640,6 +629,97 @@ class _WifiToggleButtonState extends State<WifiToggleButton> {
               child: Icon(
                 _isWifiEnabled ? Icons.wifi : Icons.wifi_off,
                 color: _isWifiEnabled ? Colors.white : Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class UiverseToggleSwitch extends StatefulWidget {
+  const UiverseToggleSwitch({Key? key}) : super(key: key);
+
+  @override
+  State<UiverseToggleSwitch> createState() => _UiverseToggleSwitchState();
+}
+
+class _UiverseToggleSwitchState extends State<UiverseToggleSwitch> {
+  bool isOn = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => setState(() => isOn = !isOn),
+      child: Container(
+        width: 70,
+        height: 40,
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: isOn ? Colors.greenAccent.shade700 : Colors.grey.shade400,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Background labels
+            Positioned(
+              left: 12,
+              child: AnimatedOpacity(
+                opacity: isOn ? 1.0 : 0.5,
+                duration: const Duration(milliseconds: 200),
+                child: Text(
+                  '0',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: isOn ? Colors.white : Colors.black54,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              right: 12,
+              child: AnimatedOpacity(
+                opacity: isOn ? 0.5 : 1.0,
+                duration: const Duration(milliseconds: 200),
+                child: Text(
+                  'I',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: isOn ? Colors.black54 : Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            // Knob
+            AnimatedAlign(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              alignment: isOn ? Alignment.centerRight : Alignment.centerLeft,
+              child: Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
