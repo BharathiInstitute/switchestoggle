@@ -22,6 +22,7 @@ import 'switch17.dart';
 import 'switch18.dart';
 import 'switch19.dart';
 import 'switch20.dart';
+import 'switch21.dart';
 
 class ContainerDetailScreen extends StatelessWidget {
   final int containerNumber;
@@ -197,6 +198,14 @@ class ContainerDetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             NeonWaveToggle(), // <-- your custom switch toggle for switch20
+          ],
+        );
+        break;
+      case 21:
+        detailWidget = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Add your custom widget for switch21 here
           ],
         );
         break;
